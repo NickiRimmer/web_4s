@@ -1,0 +1,32 @@
+GET / HTTP/1.0
+
+
+GET /web_back_4_sem/ HTTP/1.1
+HOST: u68592.kubsu-dev.ru
+
+
+HEAD /web_back_4_sem/file.tar.gz HTTP/1.1
+HOST: u68592.kubsu-dev.ru
+
+
+HEAD /web_back_4_sem/image.png HTTP/1.1
+HOST: u68592.kubsu-dev.ru
+
+
+POST /web_back_4_sem/index.php HTTP/1.1
+CONTENT-TYPE: application/x-www-form-urlencoded
+CONTENT-LENGTH: 24
+HOST: u68592.kubsu-dev.ru
+
+comment=sdlnykljdtgyhkld
+
+
+
+GET /web_back_4_sem/file.tar.gz HTTP/1.1
+HOST: u68592.kubsu-dev.ru
+RANGE: bytes=0-99
+
+
+
+HEAD /web_back_4_sem/index.php HTTP/1.1
+HOST: u68592.kubsu-dev.ru
