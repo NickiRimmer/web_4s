@@ -42,9 +42,9 @@ if ($errors) {
 
 // Сохранение в базу данных.
 
-$user = 'db'; // Заменить на ваш логин uXXXXX
-$pass = '123'; // Заменить на пароль
-$db = new PDO('mysql:host=localhost;dbname=test', $user, $pass,
+$user = 'u68592'; // Заменить на ваш логин uXXXXX
+$pass = '6714103'; // Заменить на пароль
+$db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
   [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
 
 // Подготовленный запрос. Не именованные метки.
