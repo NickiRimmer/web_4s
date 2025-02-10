@@ -20,16 +20,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 // Проверяем ошибки.
 $errors = FALSE;
-if (empty($_POST['fio'])) {
+if (empty($_POST['fio']) || !preg_match('/^([A-Z]|[a-z]|[А-Я]|[а-я]|\s){3,150}$/gmiu', $_POST['fio']) || FALSE) {
   print('Заполните имя.<br/>');
   $errors = TRUE;
 }
 
-if (empty($_POST['year']) || !is_numeric($_POST['year']) || !preg_match('/^\d+$/', $_POST['year'])) {
-  print('Заполните год.<br/>');
+//if (empty($_POST['year']) || !is_numeric($_POST['year']) || !preg_match('/^\d+$/', $_POST['year'])) {
+  //print('Заполните год.<br/>');
+  //$errors = TRUE;
+//}
+
+if (empty($_POST['phone']) || !preg_match('/^\+?[0-9]{11,14}$/', $_POST['phone']) || FALSE){
+  print('Заполните телефоню<br>');
   $errors = TRUE;
 }
 
+if (empty($_POST['mail']) || !preg_match('/^\w+@\w+.\w{2,}$/', $_POST['email']) || FALSE){
+  print('Заполните телефоню<br>');
+  $errors = TRUE;
+}
+
+if (empty($_POST['mail']) || !preg_match('/^\w+@\w+.\w{2,}$/', $_POST['email']) || FALSE){
+  print('Заполните телефоню<br>');
+  $errors = TRUE;
+}
 
 // *************
 // Тут необходимо проверить правильность заполнения всех остальных полей.
