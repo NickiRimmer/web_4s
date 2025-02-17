@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 // Проверяем ошибки.
 $errors = FALSE;
-if (empty($_POST['fio']) || !preg_match('/^([A-Z]|[a-z]|[А-Я]|[а-я]|\s){3,150}$/gmiu', $_POST['fio']) || FALSE) {
+if (empty($_POST['fio']) || !preg_match('/^([A-Z]|[a-z]|[А-Я]|[а-я]|\s){3,150}$/miu', $_POST['fio']) || FALSE) {
   print('Заполните имя.<br/>');
   $errors = TRUE;
 }
@@ -35,15 +35,68 @@ if (empty($_POST['phone']) || !preg_match('/^\+?[0-9]{11,14}$/', $_POST['phone']
   $errors = TRUE;
 }
 
-if (empty($_POST['mail']) || !preg_match('/^\w+@\w+.\w{2,}$/', $_POST['email']) || FALSE){
-  print('Заполните телефоню<br>');
+if (empty($_POST['email']) || !preg_match('/^\w+@\w+.\w{2,}$/', $_POST['email']) || FALSE){
+  print('Заполните почту<br>');
   $errors = TRUE;
 }
 
-if (empty($_POST['mail']) || !preg_match('/^\w+@\w+.\w{2,}$/', $_POST['email']) || FALSE){
-  print('Заполните телефоню<br>');
+if (empty($_POST['dbirth']) || !preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $_POST['dbirth']) || FALSE){
+  print('Заполните дату рождения<br>');
   $errors = TRUE;
 }
+
+if (empty($_POST['sex']) || !preg_match('/^[0,1]$/', $_POST['sex']) || FALSE){
+  print('Заполните пол<br>');
+  $errors = TRUE;
+}
+
+if (empty($_POST['bio']) || !preg_match('/^(\w,\s){10,1000}$/mui', $_POST['bio']) || FALSE){
+  print('Заполните биографию<br>');
+  $errors = TRUE;
+}
+
+if (empty($_POST['agree']) || !preg_match('/^on$/', $_POST['agree']) || FALSE){
+  print('Согласитесь с обработкой персональных данных<br>');
+  $errors = TRUE;
+}
+
+
+$user = 'u68592'; // Заменить на ваш логин uXXXXX
+$pass = '6714103'; // Заменить на пароль
+$db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
+  [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
+
+
+if (count($_POST['abilities'])<13) {
+  $langs = $db->query('SELECT lang_name FROM languages')->fetchAll();
+  //$langs->execute();
+  print_r($langs);
+  foreach ($_POST['abilities'] as $ability) {
+    $is_es = FALSE;
+    foreach($langs as $lang){
+      if ($lang==$ability){
+        $is_es=TRUE;
+      }
+    }
+  }
+  if (empty($_POST['abilities']) || $is_es || FALSE){
+    print('Заполните языки<br>');
+    $errors = TRUE;
+  }
+}
+
+//if (empty($_POST['bio']) || !preg_match('/^(\w,\s){10,1000}$/mui', $_POST['bio']) || FALSE){
+  //print('Заполните биографию<br>');
+  //$errors = TRUE;
+//}
+
+//if (empty($_POST['agree']) || !preg_match('/^on$/', $_POST['agree']) || FALSE){
+//  print('Согласитесь с обработкой персональных данных<br>');
+//  $errors = TRUE;
+//}
+
+
+print_r($_POST);
 
 // *************
 // Тут необходимо проверить правильность заполнения всех остальных полей.
@@ -56,10 +109,10 @@ if ($errors) {
 
 // Сохранение в базу данных.
 
-$user = 'u68592'; // Заменить на ваш логин uXXXXX
-$pass = '6714103'; // Заменить на пароль
-$db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
-  [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
+//$user = 'u68592'; // Заменить на ваш логин uXXXXX
+//$pass = '6714103'; // Заменить на пароль
+//$db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
+  //[PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
 
 // Подготовленный запрос. Не именованные метки.
 try {
