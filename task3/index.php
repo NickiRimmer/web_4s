@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   if (!empty($_GET['save'])) {
     // Если есть параметр save, то выводим сообщение пользователю.
     print('Спасибо, результаты сохранены.');
+//    print_r($_POST);
   }
   // Включаем содержимое файла form.php.
   include('form.php');
@@ -45,12 +46,15 @@ if (empty($_POST['dbirth']) || !preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $_P
   $errors = TRUE;
 }
 
-if (empty($_POST['sex']) || !preg_match('/^[0,1]$/', $_POST['sex']) || FALSE){
-  print('Заполните пол<br>');
+//if ((($_POST['sex'])!=1) || (($_POST['sex'])!=2)){
+if (empty($_POST['sex']) || !preg_match('/^(fem|male)$/', $_POST['sex']) ){
+//if (empty($_POST['sex'])) {
+  print('Заполните пол <br>');
+  print " {$_POST['sex']} ";
   $errors = TRUE;
 }
 
-if (empty($_POST['bio']) || !preg_match('/^(\w,\s){10,1000}$/mui', $_POST['bio']) || FALSE){
+if (empty($_POST['bio']) || !preg_match('/^(\w|\s){10,1000}$/mui', $_POST['bio']) || FALSE){
   print('Заполните биографию<br>');
   $errors = TRUE;
 }
@@ -68,21 +72,34 @@ $db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
 
 
 if (count($_POST['abilities'])<13) {
-  $langs = $db->query('SELECT lang_name FROM languages')->fetchAll();
+  $qer = $db->query('SELECT lang_name FROM languages')->fetchAll();
   //$langs->execute();
-  print_r($langs);
+  $langs = [];
+  //print_r($qer);
+  foreach($qer as $q1){
+    $langs[] = $q1[0];
+  }
+  
+  $is_es = FALSE;
+  
   foreach ($_POST['abilities'] as $ability) {
-    $is_es = FALSE;
+    $is_es1 = TRUE;
     foreach($langs as $lang){
-      if ($lang==$ability){
-        $is_es=TRUE;
+      if (strcmp($lang,$ability)==0){
+        $is_es1 = $is_es1 && FALSE;
+        print($lang);
+        print(' '); print($ability); print('<br>');
       }
     }
+    $is_es = $is_es || $is_es1;
   }
+
   if (empty($_POST['abilities']) || $is_es || FALSE){
     print('Заполните языки<br>');
     $errors = TRUE;
   }
+
+  //print_r($langs);
 }
 
 //if (empty($_POST['bio']) || !preg_match('/^(\w,\s){10,1000}$/mui', $_POST['bio']) || FALSE){
@@ -145,3 +162,4 @@ $stmt->execute();
 // Если запись не сохраняется, но ошибок не видно, то можно закомментировать эту строку чтобы увидеть ошибку.
 // Если ошибок при этом не видно, то необходимо настроить параметр display_errors для PHP.
 header('Location: ?save=1');
+?>

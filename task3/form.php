@@ -13,8 +13,8 @@
 
 	<label>
         Пол:<br>
-        <label><input type="radio" checked="checked" name="sex" value="0">Женский</label>
-        <label><input type="radio" name="sex" value="1">Мужской</label><br>
+        <label><input type="radio" checked="checked" name="sex" value="fem">Женский</label>
+        <label><input type="radio" name="sex" value="male">Мужской</label><br>
 	</label>
                     <label>
                     Любимый язык программирования:
