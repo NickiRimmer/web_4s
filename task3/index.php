@@ -53,6 +53,9 @@ if (empty($_POST['sex']) || !preg_match('/^(fem|male)$/', $_POST['sex']) ){
   print " {$_POST['sex']} ";
   $errors = TRUE;
 }
+else {
+  $sex = preg_match('/^fem$/', $_POST['sex']) ? FALSE : TRUE;
+}
 
 if (empty($_POST['bio']) || !preg_match('/^(\w|\s){10,1000}$/mui', $_POST['bio']) || FALSE){
   print('Заполните биографию<br>');
@@ -69,22 +72,19 @@ $user = 'u68592'; // Заменить на ваш логин uXXXXX
 $pass = '6714103'; // Заменить на пароль
 $db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
   [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
+$lngs = $db->query('select * from languages')->fetchAll();
+$l = [];
+foreach($lngs as $q2){
+  $l[$q2[0]] = $q2[1];
+}
 
 
 if (count($_POST['abilities'])<13) {
-  $qer = $db->query('SELECT lang_name FROM languages')->fetchAll();
-  //$langs->execute();
-  $langs = [];
-  //print_r($qer);
-  foreach($qer as $q1){
-    $langs[] = $q1[0];
-  }
-  
   $is_es = FALSE;
   
-  foreach ($_POST['abilities'] as $ability) {
+  foreach () {
     $is_es1 = TRUE;
-    foreach($langs as $lang){
+    foreach($lngs as $lang){
       if (strcmp($lang,$ability)==0){
         $is_es1 = $is_es1 && FALSE;
         print($lang);
@@ -132,6 +132,18 @@ if ($errors) {
   //[PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
 
 // Подготовленный запрос. Не именованные метки.
+
+try{
+  $in_req = db->prepare("INSERT INTO requests (name, mail, birthday, sex, bio, phone) VALUES (:name, :mail, :birthday, :sex, :bio, :phone)");
+  $in_langs = db->prepare("INSERT INTO lang_req VALUES (:id, :lang_id)");
+  $in_req->execute(['name'=>$_POST['fio'], 'mail'=>$_POST['email'], 'birthday'=>$_POST['dbirth'], 'sex'=>$sex, 'bio'=>$_POST['bio'], 'phone'=>$_POST['phone']]);
+  //foreach()
+}
+catch{
+  print('Error : ' . $e->getMessage());
+  exit();
+}
+
 try {
   $stmt = $db->prepare("INSERT INTO application SET name = ?");
   $stmt->execute([$_POST['fio']]);
