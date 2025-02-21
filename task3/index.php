@@ -84,8 +84,8 @@ if (count($_POST['abilities'])<13) {
 
   foreach ($_POST['abilities'] as $ability) {
     $is_es1 = TRUE;
-    foreach($lngs as $lang){
-      if (strcmp($lang,$ability)==0){
+    foreach($lngs as $lang => $sthuseless){
+      if ($lang==$ability){
         $is_es1 = $is_es1 && FALSE;
         print($lang);
         print(' '); print($ability); print('<br>');
