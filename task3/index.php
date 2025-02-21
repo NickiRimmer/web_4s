@@ -137,7 +137,10 @@ try{
   $in_req = $db->prepare("INSERT INTO requests (name, mail, birthday, sex, bio, phone) VALUES (:name, :mail, :birthday, :sex, :bio, :phone)");
   $in_langs = $db->prepare("INSERT INTO lang_req VALUES (:id, :lang_id)");
   $in_req->execute(['name'=>$_POST['fio'], 'mail'=>$_POST['email'], 'birthday'=>$_POST['dbirth'], 'sex'=>$sex, 'bio'=>$_POST['bio'], 'phone'=>$_POST['phone']]);
-  //foreach()
+  $id = $db->lastInsertId();
+  foreach($_POST['abilities'] as $ability){
+    $in_langs->execute(['id'=>$id, 'lang_id'=>$ability]);
+  }
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
