@@ -54,7 +54,7 @@ if (empty($_POST['sex']) || !preg_match('/^(fem|male)$/', $_POST['sex']) ){
   $errors = TRUE;
 }
 else {
-  $sex = preg_match('/^fem$/', $_POST['sex']) ? FALSE : TRUE;
+  $sex = preg_match('/^fem$/', $_POST['sex']) ? 0 : 1;
 }
 
 if (empty($_POST['bio']) || !preg_match('/^(\w|\s){10,1000}$/mui', $_POST['bio']) || FALSE){
@@ -134,8 +134,8 @@ if ($errors) {
 // Подготовленный запрос. Не именованные метки.
 
 try{
-  $in_req = db->prepare("INSERT INTO requests (name, mail, birthday, sex, bio, phone) VALUES (:name, :mail, :birthday, :sex, :bio, :phone)");
-  $in_langs = db->prepare("INSERT INTO lang_req VALUES (:id, :lang_id)");
+  $in_req = $db->prepare("INSERT INTO requests (name, mail, birthday, sex, bio, phone) VALUES (:name, :mail, :birthday, :sex, :bio, :phone)");
+  $in_langs = $db->prepare("INSERT INTO lang_req VALUES (:id, :lang_id)");
   $in_req->execute(['name'=>$_POST['fio'], 'mail'=>$_POST['email'], 'birthday'=>$_POST['dbirth'], 'sex'=>$sex, 'bio'=>$_POST['bio'], 'phone'=>$_POST['phone']]);
   //foreach()
 }
