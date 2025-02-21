@@ -113,7 +113,10 @@ if (count($_POST['abilities'])<13) {
 //}
 
 
-print_r($_POST);
+
+//print_r($_POST);
+
+
 
 // *************
 // Тут необходимо проверить правильность заполнения всех остальных полей.
@@ -141,15 +144,6 @@ try{
   foreach($_POST['abilities'] as $ability){
     $in_langs->execute(['id'=>$id, 'lang_id'=>$ability]);
   }
-}
-catch(PDOException $e){
-  print('Error : ' . $e->getMessage());
-  exit();
-}
-
-try {
-  $stmt = $db->prepare("INSERT INTO application SET name = ?");
-  $stmt->execute([$_POST['fio']]);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
