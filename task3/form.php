@@ -20,18 +20,21 @@
                     Любимый язык программирования:
                     <br>
                     <select name="abilities[]" multiple="multiple">
-                        <option value="Pascal">Pascal</option>
-                        <option value="C">C</option>
-                        <option value="C++">C++</option>
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="PHP">PHP</option>
-                        <option value="Python">Python</option>
-                        <option value="Java">Java</option>
-                        <option value="Haskel">Haskel</option>
-                        <option value="Clojure">Clojure</option>
-                        <option value="Prolog">Prolog</option>
-                        <option value="Scala">Scala</option>
-			<option value="Go">Go</option>
+<?php
+$user = 'u68592'; // Заменить на ваш логин uXXXXX
+$pass = '6714103'; // Заменить на пароль
+$db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
+  [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
+$lngs = $db->query('select * from languages')->fetchAll();
+$l = [];
+foreach($lngs as $q2){
+  $l[$q2[0]] = $q2[1];
+}
+foreach($l as $key => $value){
+  echo "<option value=\"$key\">$value</option>";
+}
+?>
+
                     </select>
                     </label><br>
 

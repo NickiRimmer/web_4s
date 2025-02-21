@@ -81,8 +81,8 @@ foreach($lngs as $q2){
 
 if (count($_POST['abilities'])<13) {
   $is_es = FALSE;
-  
-  foreach () {
+
+  foreach ($_POST['abilities'] as $ability) {
     $is_es1 = TRUE;
     foreach($lngs as $lang){
       if (strcmp($lang,$ability)==0){
@@ -139,7 +139,7 @@ try{
   $in_req->execute(['name'=>$_POST['fio'], 'mail'=>$_POST['email'], 'birthday'=>$_POST['dbirth'], 'sex'=>$sex, 'bio'=>$_POST['bio'], 'phone'=>$_POST['phone']]);
   //foreach()
 }
-catch{
+catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
 }
