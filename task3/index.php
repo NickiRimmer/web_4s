@@ -78,8 +78,11 @@ foreach($lngs as $q2){
   $l[$q2[0]] = $q2[1];
 }
 
-
-if (count($_POST['abilities'])<13) {
+if (empty($_POST['abilities'])){
+  $errors = TRUE;
+  print('Заполните языки');
+}
+if (!empty($_POST['abilities']) && count($_POST['abilities'])<13) {
   $is_es = FALSE;
 
   foreach ($_POST['abilities'] as $ability) {
@@ -87,8 +90,8 @@ if (count($_POST['abilities'])<13) {
     foreach($lngs as $lang => $sthuseless){
       if ($lang==$ability){
         $is_es1 = $is_es1 && FALSE;
-        print($lang);
-        print(' '); print($ability); print('<br>');
+        //print($lang);
+        //print(' '); print($ability); print('<br>');
       }
     }
     $is_es = $is_es || $is_es1;
