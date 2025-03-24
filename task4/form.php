@@ -57,7 +57,7 @@ $user = 'u68592'; // Заменить на ваш логин uXXXXX
 $pass = '6714103'; // Заменить на пароль
 $db = new PDO('mysql:host=localhost;dbname=u68592', $user, $pass,
   [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
-$lngs = $db->query('select * from languages')->fetchAll();
+$lngs = $db->query('select * from 4_languages')->fetchAll();
 $l = [];
 foreach($lngs as $q2){
   $l[$q2[0]] = $q2[1];
