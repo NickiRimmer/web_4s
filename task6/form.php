@@ -10,9 +10,6 @@
 </head>
 
 <body>
-    <div><?= $_SERVER['REQUEST_URI']?></div>
-    <div><?= $_SERVER['PATH_INFO']?></div>
-    <div><?= $_SERVER['ORIG_PATH_INFO']?></div>
   <a href="login.php" style="position: absolute; top: 0; right: 0;">
   <?php
   if (empty($_COOKIE[session_name()]))

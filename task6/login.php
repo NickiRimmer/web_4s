@@ -12,10 +12,10 @@
 // файл login.php должен быть в кодировке UTF-8 без BOM.
 header('Content-Type: text/html; charset=UTF-8');
 
-function GET(){
+function GET()
+{
   ?>
 <html>
-
 <head>
   <style>
   </style>
@@ -29,6 +29,7 @@ function GET(){
     <input type="submit" value="Войти" />
   </form>
 </body>
+</html>
   <?php
   exit();
 }
@@ -52,6 +53,7 @@ function POST(){
     print("Неверный логин или пароль<br>");
   }
 }
+
 
 if (empty($_COOKIE[session_name()])){
   if ($_SERVER['REQUEST_METHOD']=='GET'){
