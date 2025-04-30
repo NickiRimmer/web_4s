@@ -3,7 +3,8 @@
 header('Content-Type: text/html; charset=UTF-8');
 
 
-function GET(){
+function GET()
+{
   ?>
 <html>
 
@@ -20,6 +21,7 @@ function GET(){
     <input type="submit" value="Войти" />
   </form>
 </body>
+</html>
   <?php
   exit();
 }

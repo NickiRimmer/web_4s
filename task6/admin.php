@@ -343,9 +343,7 @@ function POST()
   header('Location: admin.php');
 }
 
-
 //header('HTTP/1.0 401 Unauthorized');
-
 
 $data = $db->query('SELECT * FROM 6_admins')->fetchAll();
 $admins = array();
@@ -364,6 +362,7 @@ if (empty($_SERVER['PHP_AUTH_USER']) ||
   exit();
 }
 
+//если всё норм
 if ($_SERVER['REQUEST_METHOD']=='GET'){
   if (isset($_COOKIE['editing'])){
     GET();

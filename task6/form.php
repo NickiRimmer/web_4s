@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <a href="login.php" style="position: absolute; top: 0; right: 0;">
   <?php
   if (empty($_COOKIE[session_name()]))
