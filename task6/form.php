@@ -1,3 +1,11 @@
+<?php
+if (!preg_match('/^\/web_4s\/task[1-6]\/(|index.php|admin.php)$/', $_SERVER['REQUEST_URI'])){
+  http_response_code(400);
+  header('HTTP/1.1 400 Bad request');
+  exit();
+}
+?>
+
 <html>
 
 <head>
@@ -10,6 +18,8 @@
 </head>
 
 <body>
+  <div><?= $_SERVER['REQUEST_URI']?></div>
+  <br>
   <a href="login.php" style="position: absolute; top: 0; right: 0;">
   <?php
   if (empty($_COOKIE[session_name()]))
